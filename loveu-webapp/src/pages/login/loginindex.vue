@@ -1,25 +1,34 @@
-//登录组件
 <template>
-  <div class="main">
-    <h4 class="title">
-      <div class="normal-title">
-        <a class="normal-title-login" href="/">登录</a>
-        <b>|</b>
-        <a class="normal-title-signup" href="/">注册</a>
-      </div>
-    </h4>
-    <div class="login-container">
-      <form>
-        <div class="input-email">
-          <input placeholder="手机号或邮箱">
-        </div>
-        <div class="input-password">
-          <input placeholder="密码">
-        </div>
-      </form>
-    </div>
-      <el-button type="primary" @click="login">登录</el-button>
-
+  <div class="login-container">
+    <el-form :model="ruleForm" :rules="rule"
+    status-icon
+    ref="ruleForm"
+    label-position="left"
+    label-width="0px"
+    class="login-page">
+      <h3 class="title">登录</h3>
+      <el-form-item prop="username">
+        <el-input 
+        type="text"
+        v-model="ruleForm.username"
+        placeholder="用户名"
+        auto-complete
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input 
+        type="password"
+        v-model="ruleForm.password"
+        placeholder="密码"
+        auto-complete="one"
+        @keyup.enter.native="handleSubmit"
+        ></el-input>
+      </el-form-item>
+      <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox>
+      <el-form-item style="width:100%;">
+        <el-button type="primary" style="width:100%" @click="handleSubmit" :loading="logining">登录</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -27,82 +36,79 @@
 export default {
   data() {
     return {
+      logining: false,
+      token: '',
+      ruleForm: {
+        username: "",
+        password: ""
+      },
+      rule: {
+        username: [
+          {
+            required: true,
+            message: "用户名不能为空",
+            trigger: "blur"
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: "密码不能为空",
+            trigger: "blur"
+          }
+        ]
+      },
+      checked: false
     };
   },
   methods: {
-    login() {
-      this.$axios.get('/test/zzy')
-        .then(response => {
-          console.log(response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        });
+    handleSubmit(event) {
+      let that = this
+      this.$refs.ruleForm.validate((valid) => {
+        if(valid) {
+          this.logining = true;
+          this.$axios.post("/auth/login", {
+            username: this.ruleForm.username,
+            password: this.ruleForm.password
+          })
+          .then(res => {
+            console.log(res)
+            if(res.status != 200) {
+              that.$message.error(res.data.message)
+            } else {
+              that.token = res.data.data['token']
+              this.$store.commit('changeToken', that.token)
+              this.$store.commit('changeUsername', that.ruleForm.username)
+              this.$router.push({ path: '/test'})
+            }
+          })
+        } else {
+          console.log('error submit!');
+          return false;
+        }
+      })
     }
-  },
-  components: {}
+  }
 };
 </script>
 
 <style scoped>
-.normal-title .normal-title-login {
-  font-weight: 700;
-  color: #ea6f5a;
-}
-.normal-title .normal-title-signup {
-  font-weight: 700;
-  color: #7ecc35;
-}
-.main {
-  width: 400px;
-  margin: 60px auto 0;
-  /* 上 左右 下 的内边距 */
-  padding: 50px 50px 30px;
-  background-color: rgb(255, 212, 241);
-  /* 圆角边框 */
-  border-radius: 15px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  vertical-align: middle;
-  display: inline-block;
-}
-.main .el-button {
-    margin: 30px auto 0;
-    border-radius: 10px;
-}
-.normal-title a {
-  /* 让超链接没有下划线 */
-  text-decoration: none;
-  color: #5c5b5f;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 22px;
-}
-.normal-title b {
-  font-size: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
 .login-container {
-  background-color: #141a48;
-  margin: 0px;
-  overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
-.login-container .input-email input {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 0;
-  padding: 4px 12px 4px 35px;
-  border: 1px solid #c8c8c8;
-  border-radius: 0 0 4px 4px;
-  vertical-align: middle;
+.login-page {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin: 180px auto;
+    width: 350px;
+    padding: 35px 35px 15px;
+    background: rgb(253, 217, 225);
+    border: 1px solid #eaeaea;
+    /* box-shadow: 0 0 25px #cac6c6; */
 }
-.login-container .input-password input {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 0;
-  padding: 4px 12px 4px 35px;
-  border: 1px solid #c8c8c8;
-  border-radius: 0 0 4px 4px;
-  vertical-align: middle;
+label.el-checkbox.rememberme {
+    margin: 0px 0px 15px;
+    text-align: left;
 }
 </style>
-

@@ -3,6 +3,7 @@ package com.zxzyyyy.loveu.controller;
 import com.zxzyyyy.loveu.entity.Auth;
 import com.zxzyyyy.loveu.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
