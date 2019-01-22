@@ -1,6 +1,5 @@
 package com.zxzyyyy.loveu.service;
 
-import com.zxzyyyy.loveu.dto.AuthDto;
 import com.zxzyyyy.loveu.dto.UserDetailsDto;
 import com.zxzyyyy.loveu.entity.Auth;
 import com.zxzyyyy.loveu.model.AuthDetail;

@@ -21,8 +21,8 @@ public class TestController {
 
     @ResponseBody
     @RequestMapping(value = "/{x}", method = RequestMethod.GET)
-    public String test(@PathVariable String x) {
+    public Auth test(@PathVariable String x) {
         Auth auth = authService.findByUserName(x);
-        return auth.getPassword();
+        return auth;
     }
 }

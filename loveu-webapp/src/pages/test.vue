@@ -11,8 +11,8 @@ export default {
         },
         print() {
             this.$axios.get("/test/zzy")
-            .then(data => {
-                console.log(data)
+            .then(res => {
+                console.log(res.data)
             })
         }
     }

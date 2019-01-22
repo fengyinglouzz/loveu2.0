@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.zxzyyyy.loveu.response.ErrorCode.NOT_HAS_ACCOUNT;
-import static com.zxzyyyy.loveu.response.ErrorCode.WRONG_PASSWORD;
+import static com.zxzyyyy.loveu.response.ErrorCode.*;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -37,7 +36,7 @@ public class AuthController {
     public ResultMap login(@Valid @RequestBody AuthDto authDto, BindingResult bindingResult) {
         // 检查有没有输入用户名密码和格式对不对
         if (bindingResult.hasErrors()){
-            return new ResultMap().fail("400").message("缺少参数或者参数格式不对").data("");
+            return new ResultMap().fail("400").message(PARAM_WRONG).data("");
         }
         Auth auth = authService.findByUserName(authDto.getUsername());
         if (auth == null) {

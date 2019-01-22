@@ -1,32 +1,48 @@
 <template>
   <div class="login-container">
-    <el-form :model="ruleForm" :rules="rule"
-    status-icon
-    ref="ruleForm"
-    label-position="left"
-    label-width="0px"
-    class="login-page">
-      <h3 class="title">登录</h3>
-      <el-form-item prop="username">
-        <el-input 
-        type="text"
-        v-model="ruleForm.username"
-        placeholder="用户名"
-        auto-complete
-        ></el-input>
+    <el-form
+      :model="loginForm"
+      :rules="rule"
+      status-icon
+      ref="loginForm"
+      label-position="left"
+      label-width="0px"
+      class="login-page"
+    >
+      <h3 class="title-login" v-if="iflogin">登录</h3>
+      <h3 class="title-signup" v-if="!iflogin">注册</h3>
+      <el-form-item prop="username" v-if="iflogin">
+        <el-input type="text" v-model="loginForm.username" placeholder="用户名" auto-complete></el-input>
       </el-form-item>
-      <el-form-item prop="password">
-        <el-input 
-        type="password"
-        v-model="ruleForm.password"
-        placeholder="密码"
-        auto-complete="one"
-        @keyup.enter.native="handleSubmit"
+      <el-form-item prop="password" v-if="iflogin">
+        <el-input
+          type="password"
+          v-model="loginForm.password"
+          placeholder="密码"
+          auto-complete="one"
+          @keyup.enter.native="handleSubmit"
         ></el-input>
       </el-form-item>
       <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox>
+      <el-form-item>
+        <el-button type="text" @click="trans" v-if="iflogin">还没有账号？点我注册</el-button>
+               <el-button type="text" @click="trans" v-if="!iflogin">点我返回登录</el-button> 
+      </el-form-item>
       <el-form-item style="width:100%;">
-        <el-button type="primary" style="width:100%" @click="handleSubmit" :loading="logining">登录</el-button>
+        <el-button
+          type="primary"
+          style="width:100%"
+          @click="handleSubmit"
+          :loading="logining"
+          v-if="iflogin"
+        >登录</el-button>
+        <el-button
+          type="primary"
+          style="width:100%"
+          @click="handleSubmit"
+          :loading="logining"
+          v-if="!iflogin"
+        >注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -34,13 +50,20 @@
 
 <script>
 export default {
+  created: function() {},
   data() {
     return {
+      iflogin: true,
       logining: false,
-      token: '',
-      ruleForm: {
+      token: "",
+      loginForm: {
         username: "",
         password: ""
+      },
+      signupForm: {
+        email: "",
+        username: "",
+        password: "",
       },
       rule: {
         username: [
@@ -62,31 +85,37 @@ export default {
     };
   },
   methods: {
+    trans() {
+      this.iflogin = !this.iflogin;
+    },
     handleSubmit(event) {
-      let that = this
-      this.$refs.ruleForm.validate((valid) => {
-        if(valid) {
+      let that = this;
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
           this.logining = true;
-          this.$axios.post("/auth/login", {
-            username: this.ruleForm.username,
-            password: this.ruleForm.password
-          })
-          .then(res => {
-            console.log(res)
-            if(res.status != 200) {
-              that.$message.error(res.data.message)
-            } else {
-              that.token = res.data.data['token']
-              this.$store.commit('changeToken', that.token)
-              this.$store.commit('changeUsername', that.ruleForm.username)
-              this.$router.push({ path: '/test'})
-            }
-          })
+          this.$axios
+            .post("/auth/login", {
+              username: this.loginForm.username,
+              password: this.loginForm.password
+            })
+            .then(res => {
+              debugger;
+              console.log(res);
+              if (res.data.code != 200) {
+                that.$message.error(res.data.message);
+                this.logining = false;
+              } else {
+                that.token = res.data.data["token"];
+                this.$store.commit("changeToken", that.token);
+                this.$store.commit("changeUsername", that.loginForm.username);
+                this.$router.push({ path: "/test" });
+              }
+            });
         } else {
-          console.log('error submit!');
+          console.log("error submit!");
           return false;
         }
-      })
+      });
     }
   }
 };
@@ -94,21 +123,21 @@ export default {
 
 <style scoped>
 .login-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .login-page {
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    margin: 180px auto;
-    width: 350px;
-    padding: 35px 35px 15px;
-    background: rgb(253, 217, 225);
-    border: 1px solid #eaeaea;
-    /* box-shadow: 0 0 25px #cac6c6; */
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin: 180px auto;
+  width: 350px;
+  padding: 35px 35px 15px;
+  background: rgb(253, 217, 225);
+  border: 1px solid #eaeaea;
+  /* box-shadow: 0 0 25px #cac6c6; */
 }
 label.el-checkbox.rememberme {
-    margin: 0px 0px 15px;
-    text-align: left;
+  margin: 0px 0px 15px;
+  text-align: left;
 }
 </style>
