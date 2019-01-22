@@ -9,12 +9,29 @@
       label-width="0px"
       class="login-page"
     >
-      <h3 class="title-login" v-if="iflogin">登录</h3>
-      <h3 class="title-signup" v-if="!iflogin">注册</h3>
-      <el-form-item prop="username" v-if="iflogin">
-        <el-input type="text" v-model="loginForm.username" placeholder="用户名" auto-complete></el-input>
+      <h3
+        class="title-login"
+        v-if="iflogin"
+      >登录</h3>
+      <h3
+        class="title-signup"
+        v-if="!iflogin"
+      >注册</h3>
+      <el-form-item
+        prop="username"
+        v-if="iflogin"
+      >
+        <el-input
+          type="text"
+          v-model="loginForm.username"
+          placeholder="用户名"
+          auto-complete
+        ></el-input>
       </el-form-item>
-      <el-form-item prop="password" v-if="iflogin">
+      <el-form-item
+        prop="password"
+        v-if="iflogin"
+      >
         <el-input
           type="password"
           v-model="loginForm.password"
@@ -23,10 +40,21 @@
           @keyup.enter.native="handleSubmit"
         ></el-input>
       </el-form-item>
-      <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox>
+      <el-checkbox
+        v-model="checked"
+        class="rememberme"
+      >记住密码</el-checkbox>
       <el-form-item>
-        <el-button type="text" @click="trans" v-if="iflogin">还没有账号？点我注册</el-button>
-               <el-button type="text" @click="trans" v-if="!iflogin">点我返回登录</el-button> 
+        <el-button
+          type="text"
+          @click="trans"
+          v-if="iflogin"
+        >还没有账号？点我注册</el-button>
+        <el-button
+          type="text"
+          @click="trans"
+          v-if="!iflogin"
+        >点我返回登录</el-button>
       </el-form-item>
       <el-form-item style="width:100%;">
         <el-button
@@ -50,8 +78,8 @@
 
 <script>
 export default {
-  created: function() {},
-  data() {
+  created: function () { },
+  data () {
     return {
       iflogin: true,
       logining: false,
@@ -85,10 +113,10 @@ export default {
     };
   },
   methods: {
-    trans() {
+    trans () {
       this.iflogin = !this.iflogin;
     },
-    handleSubmit(event) {
+    handleSubmit (event) {
       let that = this;
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -99,7 +127,6 @@ export default {
               password: this.loginForm.password
             })
             .then(res => {
-              debugger;
               console.log(res);
               if (res.data.code != 200) {
                 that.$message.error(res.data.message);
@@ -108,7 +135,18 @@ export default {
                 that.token = res.data.data["token"];
                 this.$store.commit("changeToken", that.token);
                 this.$store.commit("changeUsername", that.loginForm.username);
-                this.$router.push({ path: "/test" });
+                this.$axios
+                  .get(`/group/${this.loginForm.username}`)
+                  .then(res => {
+                    if (res.data.code != 200) {
+                      that.$message.error(res.data.message);
+                      this.logining = false;
+                    } else {
+                      this.$store.commit("changeGroupname", res.data.data);
+                      this.$router.push({ path: "/home" });
+                    }
+                  })
+                // this.$store.commit("changeGroupname", that.loginForm.username);
               }
             });
         } else {
