@@ -1,9 +1,16 @@
 <template>
-  <div class="page-title">社区现在没有人</div>
+  <div>
+    <top-line></top-line>
+    <div class="page-title">社区现在没有人</div>
+  </div>
 </template>
 <script>
-export default {
+import TopLine from '@/components/Topline'
 
+export default {
+  components: {
+    TopLine,
+  }
 }
 </script>
 

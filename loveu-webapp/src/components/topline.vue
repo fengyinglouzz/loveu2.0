@@ -32,7 +32,7 @@
             onMouseOut="this.style.color='rgb(77, 180, 187)'"
           >退出</a>
         </div>
-        <div v-if="!isLogin && !isLoginPage">
+        <div v-if="!isLogin">
           <a
             href="/#/login"
             class="topline-auth-auth-sth"
@@ -52,9 +52,6 @@ export default {
     isLogin () {
       return this.$store.getters.getUsername;
     },
-    isLoginPage () {
-      return this.$router.currentRoute.path === '/login';
-    }
   },
   data () {
     return {
@@ -86,20 +83,23 @@ export default {
   -webkit-transform: translateY(-50%);
   /* 子元素横向排列 */
   display: flex;
+  height: 70px;
 }
 .topline-img {
   /* 左边留出空间 */
   margin-left: 30px;
+  margin-top: 50px;
 }
 
 .topline-img img {
   /* 设置图片大小 */
-  width: 150px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
 }
 .topline-menu {
   /* 周围加多大的隔离框 */
   margin: 0;
+  margin-top: 40px;
 }
 .topline-menu-nav {
   /* 去掉li标签左侧的小黑点 */
@@ -122,6 +122,7 @@ export default {
   /* 横向排列元素 */
   float: left;
   color: rgb(77, 180, 187);
+  margin-top: 30px;
   margin-left: 10px;
   margin-right: 10px;
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <div>{{ blank }}</div>
     <el-form
       :model="loginForm"
       :rules="rule"
@@ -78,9 +79,9 @@
 
 <script>
 export default {
-  created: function () { },
   data () {
     return {
+      blank: '1',
       iflogin: true,
       logining: false,
       token: "",
@@ -163,9 +164,12 @@ export default {
 .login-container {
   width: 100%;
   height: 100%;
+  background: #fff url("../../assets/img/heart.jpg") no-repeat;
+  background-size: cover;
 }
 .login-page {
   -webkit-border-radius: 5px;
+  text-align: center;
   border-radius: 5px;
   margin: 180px auto;
   width: 350px;
