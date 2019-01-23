@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").authenticated()       // 需携带有效 token
+                .antMatchers("/test").authenticated()       // 需携带有效 token
                 .antMatchers("/test/*").hasAuthority("admin")   // 需拥有 admin 这个权限
 //                .antMatchers("/test/*").hasRole("ADMIN")      需拥有 ADMIN 这个身份
                 // 配置被拦截时的处理
