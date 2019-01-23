@@ -1,15 +1,14 @@
 package com.zxzyyyy.loveu.controller;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import com.zxzyyyy.loveu.dto.EmailDto;
 import com.zxzyyyy.loveu.response.Data;
 import com.zxzyyyy.loveu.response.ResultMap;
 import com.zxzyyyy.loveu.service.MailService;
 import com.zxzyyyy.loveu.util.GenerateCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 
 @RestController
@@ -27,7 +26,7 @@ public class MailController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public ResultMap send() throws MessagingException, IOException, javax.mail.MessagingException {
+    public ResultMap send() throws IOException, javax.mail.MessagingException {
         EmailDto emailDto = new EmailDto();
         emailDto.setSubject("这是标题");
         emailDto.setContent("这是内容");
@@ -37,7 +36,7 @@ public class MailController {
     }
 
     @RequestMapping(value = "/{emailAddress}", method = RequestMethod.POST)
-    public ResultMap signup(@PathVariable String emailAddress) throws MessagingException, IOException, javax.mail.MessagingException {
+    public ResultMap signup(@PathVariable String emailAddress) throws IOException, MessagingException {
         EmailDto emailDto = new EmailDto();
         emailDto.setSubject("恋爱记注册邮件");
         emailDto.setReceiver(emailAddress);

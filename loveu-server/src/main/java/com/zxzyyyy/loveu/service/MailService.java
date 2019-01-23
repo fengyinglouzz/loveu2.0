@@ -1,15 +1,12 @@
 package com.zxzyyyy.loveu.service;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import com.zxzyyyy.loveu.dto.EmailDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.*;
 import java.util.Objects;
@@ -20,7 +17,7 @@ import static com.zxzyyyy.loveu.constant.mailConstants.USERNAME;
 
 @Service
 public class MailService {
-    public void createTs(EmailDto emailDto) throws MessagingException, IOException, javax.mail.MessagingException {
+    public void createTs(EmailDto emailDto) throws IOException, MessagingException {
         Properties prop = new Properties();
         prop.setProperty("mail.host", "smtp.qq.com");
         prop.setProperty("mail.transport.protocol", "smtp");
