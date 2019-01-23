@@ -23,7 +23,7 @@
           class="topline-auth-auth"
           v-if="isLogin"
         >
-          <a class="topline-auth-auth-sth">zzy</a>
+          <a class="topline-auth-auth-sth">{{ isLogin }}</a>
           <div class="topline-auth-auth-sth">|</div>
           <a
             @click="logout"

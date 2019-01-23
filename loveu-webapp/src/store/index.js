@@ -7,6 +7,7 @@ Vue.use(Vuex)
 // 创建vuex的store
 const store = new Vuex.Store({
   state: {
+    code: '',
     count: 5,
     username: localStorage.getItem('username') ? localStorage.getItem('username') : '',
     groupname: localStorage.getItem('groupname') ? localStorage.getItem('groupname') : '',
@@ -19,6 +20,9 @@ const store = new Vuex.Store({
     },
     decrement(state) {
       state.count--
+    },
+    changeCode(state, code) {
+      state.code = code
     },
     changeUsernameFromLs(state) {
       state.username = localStorage.getItem('username')
@@ -52,6 +56,9 @@ const store = new Vuex.Store({
   },
   //通过getter进行数据获取
   getters: {
+    getCode(state) {
+      return state.code;
+    },
     getState(state) {
       return state.count > 0 ? state.count : 0;
     },

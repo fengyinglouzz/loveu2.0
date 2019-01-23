@@ -1,45 +1,63 @@
 <template>
   <div class="login-container">
-    <div>{{ blank }}</div>
+    <div>
+      <i class="fa fa-spinner fa-pulse fa-4x"></i>
+      <svg
+        class="icon icon-user"
+        style="height:4em;width:4em;"
+        aria-hidden="true"
+      >
+        <use xlink:href="#icon-yuzhouxingqiu-04"></use>
+      </svg>
+    </div>
     <el-form
       :model="loginForm"
-      :rules="rule"
+      :rules="ruleforlogin"
       status-icon
       ref="loginForm"
       label-position="left"
       label-width="0px"
       class="login-page"
     >
-      <h3
-        class="title-login"
-        v-if="iflogin"
-      >登录</h3>
-      <h3
-        class="title-signup"
-        v-if="!iflogin"
-      >注册</h3>
-      <el-form-item
-        prop="username"
-        v-if="iflogin"
-      >
-        <el-input
-          type="text"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          auto-complete
-        ></el-input>
+      <h3 class="title-login">登录</h3>
+      <el-form-item prop="username">
+        <el-col span="2">
+          <svg
+            class="icon icon-user"
+            aria-hidden="true"
+          >
+            <use xlink:href="#icon--"></use>
+          </svg>
+          <!-- <i class="iconfont icon--"></i> -->
+        </el-col>
+        <el-col span="21">
+          <el-input
+            class="input-username"
+            type="text"
+            v-model="loginForm.username"
+            placeholder="用户名"
+            auto-complete
+          ></el-input>
+        </el-col>
       </el-form-item>
-      <el-form-item
-        prop="password"
-        v-if="iflogin"
-      >
-        <el-input
-          type="password"
-          v-model="loginForm.password"
-          placeholder="密码"
-          auto-complete="one"
-          @keyup.enter.native="handleSubmit"
-        ></el-input>
+      <el-form-item prop="password">
+        <el-col span="2">
+          <svg
+            class="icon icon-password"
+            aria-hidden="true"
+          >
+            <use xlink:href="#icon-tubiaozhizuomobanyihuifu-"></use>
+          </svg>
+        </el-col>
+        <el-col span="21">
+          <el-input
+            type="password"
+            v-model="loginForm.password"
+            placeholder="密码"
+            auto-complete="one"
+            @keyup.enter.native="handleSubmit"
+          ></el-input>
+        </el-col>
       </el-form-item>
       <el-checkbox
         v-model="checked"
@@ -48,14 +66,8 @@
       <el-form-item>
         <el-button
           type="text"
-          @click="trans"
-          v-if="iflogin"
+          @click="gosignup"
         >还没有账号？点我注册</el-button>
-        <el-button
-          type="text"
-          @click="trans"
-          v-if="!iflogin"
-        >点我返回登录</el-button>
       </el-form-item>
       <el-form-item style="width:100%;">
         <el-button
@@ -63,15 +75,7 @@
           style="width:100%"
           @click="handleSubmit"
           :loading="logining"
-          v-if="iflogin"
         >登录</el-button>
-        <el-button
-          type="primary"
-          style="width:100%"
-          @click="handleSubmit"
-          :loading="logining"
-          v-if="!iflogin"
-        >注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -82,19 +86,13 @@ export default {
   data () {
     return {
       blank: '1',
-      iflogin: true,
       logining: false,
       token: "",
       loginForm: {
         username: "",
         password: ""
       },
-      signupForm: {
-        email: "",
-        username: "",
-        password: "",
-      },
-      rule: {
+      ruleforlogin: {
         username: [
           {
             required: true,
@@ -114,8 +112,9 @@ export default {
     };
   },
   methods: {
-    trans () {
-      this.iflogin = !this.iflogin;
+    gosignup () {
+      localStorage.setItem('token', 'specialforsignup')
+      this.$router.push('/#/signup')
     },
     handleSubmit (event) {
       let that = this;
@@ -161,11 +160,15 @@ export default {
 </script>
 
 <style scoped>
+.icon-yuzhouxingqiu-04 {
+  font-size: 50px;
+}
 .login-container {
   width: 100%;
   height: 100%;
-  background: #fff url("../../assets/img/heart.jpg") no-repeat;
-  background-size: cover;
+  /* 全屏背景图 */
+  /* background: #fff url("../../assets/img/heart.jpg") no-repeat; */
+  /* background-size: cover; */
 }
 .login-page {
   -webkit-border-radius: 5px;
@@ -177,6 +180,14 @@ export default {
   background: rgb(253, 217, 225);
   border: 1px solid #eaeaea;
   /* box-shadow: 0 0 25px #cac6c6; */
+}
+.icon-user {
+  margin-top: 6px;
+}
+.icon-password {
+  height: 22px;
+  width: 22px;
+  margin-top: 8px;
 }
 label.el-checkbox.rememberme {
   margin: 0px 0px 15px;

@@ -4,11 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import './assets/icon/iconfont.css'
+import './assets/icon/iconfont.js'
+import 'font-awesome/css/font-awesome.min.css'
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon'
 import router from './router'
 import store from './store'
 
 // 引用axios，并设置基础URL为后端服务api地址
 var axios = require('axios')
+Vue.component('icon', Icon)
 axios.defaults.baseURL = 'http://localhost:666'
 axios.defaults.headers.common['token'] = store.state.token
 // 将API方法绑定到全局

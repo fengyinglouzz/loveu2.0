@@ -3,6 +3,12 @@
     <top-line></top-line>
     <el-container>
       <el-header>
+        <svg
+          class="icon icon-home"
+          aria-hidden="true"
+        >
+          <use xlink:href="#icon-jia_"></use>
+        </svg>
         <a class="group-name">{{ this.groupname }}</a>
         <span>
           <el-badge
@@ -86,6 +92,12 @@ export default {
   font-size: 40px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: coral;
+}
+.icon-home {
+  height: 50px;
+  width: 50px;
+  margin-top: 10px;
+  margin-left: 30px;
 }
 .new-article {
   margin-left: 60px;

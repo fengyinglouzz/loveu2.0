@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import loginIndex from '@/pages/login/loginindex'
+import signupIndex from '@/pages/login/signupIndex'
 import homePage from '@/pages/home'
 import communityPage from '@/pages/community'
 import test from '@/pages/test'
@@ -26,6 +27,11 @@ const router = new Router({
       component: loginIndex
     },
     {
+      path: '/signup',
+      name: 'signupIndex',
+      component: signupIndex
+    },
+    {
       path: '/test',
       name: 'test',
       component: test
@@ -44,12 +50,14 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/login' || to.path === '/community') {
+  if (to.path === '/login' || to.path === '/community' || to.path === '/signup') {
     next()
   } else {
     let token = localStorage.getItem('token')
     let username = localStorage.getItem('username')
-    if (token === null || token === '') {
+    if (token === 'specialforsignup') {
+      next('/signup')
+    } else if (token === null || token === '') {
       next('/login')
     } else if (username === null) {
       next('/community')
