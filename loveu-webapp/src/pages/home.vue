@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import TopLine from '@/components/Topline'
+import TopLine from '@/components/TopLine'
 import ArticleList from '@/components/ArticleList'
 
 export default {

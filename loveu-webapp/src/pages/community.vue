@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import TopLine from '@/components/Topline'
+import TopLine from '@/components/TopLine'
 
 export default {
   components: {

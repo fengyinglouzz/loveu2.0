@@ -4,6 +4,12 @@ import loginIndex from '@/pages/login/loginindex'
 import signupIndex from '@/pages/login/signupIndex'
 import homePage from '@/pages/home'
 import communityPage from '@/pages/community'
+import myPage from '@/pages/my'
+import myarticlePage from '@/pages/article/myarticle'
+import herarticlePage from '@/pages/article/herarticle'
+import ourarticlePage from '@/pages/article/ourarticle'
+import mymoneyPage from '@/pages/money'
+import anniversaryPage from '@/pages/anniversary'
 import test from '@/pages/test'
 import store from '../store';
 
@@ -39,12 +45,37 @@ const router = new Router({
     {
       path: '/home',
       name: 'home',
+      meta: {
+        title: '空间',
+      },
       component: homePage,
     },
     {
       path: '/community',
       name: 'community',
       component: communityPage,
+    },
+    {
+      path: '/my',
+      name: 'my',
+      children: [{
+        path: '/myarticle',
+        name: 'myarticle',
+        component: myarticlePage,
+      }, {
+        path: '/herarticle',
+        name: 'herarticle',
+        component: herarticlePage,
+      }, {
+        path: '/mymoney',
+        name: 'mymoney',
+        component: mymoneyPage,
+      }, {
+        path: '/anniversary',
+        name: 'anniversary',
+        component: anniversaryPage,
+      }],
+      component: myPage,
     }
   ]
 })

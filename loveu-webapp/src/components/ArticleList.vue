@@ -1,20 +1,33 @@
 <template>
   <ul class="article-list">
+    <h1>{{ this.person }}</h1>
     <li
       v-for="item in articleList"
       :key="item.title"
     >
-      <div class="article-title">{{ item.title }}</div>
-      <div class="article-abstract">{{ item.abstract }}</div>
-      <div class="article-date">{{ item.date }}</div>
+      <div class="article-one">
+        <div class="article-title">{{ item.title }}</div>
+        <div class="article-abstract">{{ item.abstract }}</div>
+        <div class="article-date">{{ item.date }}</div>
+      </div>
+      <hr
+        style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#987cb9,strength=10);opacity:0.2;"
+        width="100%"
+        color="#987cb9"
+        size="1"
+      >
     </li>
   </ul>
 </template>
 
 <script>
 export default {
+  created () {
+    this.person = this.$router.history.current.name;
+  },
   data () {
     return {
+      person: '',
       articleList: [
         {
           "title": "标题一",
@@ -56,7 +69,15 @@ ul li {
 }
 .article-date {
   font-size: 20px;
-  margin-top: 3px;
+  margin-top: 15px;
   margin-bottom: 16px;
+}
+.article-one {
+  display: block;
+  padding: 12px 15px;
+  margin-bottom: 1px;
+}
+.article-one:hover {
+  background-color: rgb(248, 248, 248);
 }
 </style>

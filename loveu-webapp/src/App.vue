@@ -30,4 +30,8 @@ export default {
   fill: currentColor;
   overflow: hidden;
 }
+a {
+  text-decoration: none;
+  color: coral;
+}
 </style>

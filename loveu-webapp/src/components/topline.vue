@@ -23,8 +23,17 @@
           class="topline-auth-auth"
           v-if="isLogin"
         >
-          <a class="topline-auth-auth-sth">{{ isLogin }}</a>
-          <div class="topline-auth-auth-sth">|</div>
+          <a
+            class="topline-auth-auth-sth"
+            onMouseOver="this.style.color='#F00'"
+            onMouseOut="this.style.color='rgb(77, 180, 187)'"
+            style="text-decoration:none;margin-top:32px;"
+            href="/#/my"
+          >{{ isLogin }}</a>
+          <div
+            class="topline-auth-auth-sth"
+            style="margin-top:32px;color:#5c5b5f;"
+          >|</div>
           <a
             @click="logout"
             class="topline-auth-auth-sth"

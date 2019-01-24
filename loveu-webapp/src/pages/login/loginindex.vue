@@ -3,7 +3,7 @@
     <div>
       <i class="fa fa-spinner fa-pulse fa-4x"></i>
       <svg
-        class="icon icon-user"
+        class="icon"
         style="height:4em;width:4em;"
         aria-hidden="true"
       >
