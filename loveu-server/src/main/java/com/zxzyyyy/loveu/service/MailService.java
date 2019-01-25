@@ -23,6 +23,11 @@ public class MailService {
         prop.setProperty("mail.transport.protocol", "smtp");
         prop.setProperty("mail.smtp.auth", "true");
 
+        //改用465发邮件
+        prop.put("mail.smtp.port", "465");
+        prop.put("mail.smtp.ssl.enable", true);
+        prop.put("mail.smtp.socketFactory.port", "465");
+
         //使用JavaMail发送邮件的5个步骤
 
         //1、创建session，并开启debug模式，这样就可以查看到程序发送Email的运行状态

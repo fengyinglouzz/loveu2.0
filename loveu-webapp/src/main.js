@@ -1,6 +1,5 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -23,7 +22,7 @@ var axios = require('axios')
 Vue.component('icon', Icon)
 Vue.use(VueQuillEditor)
 
-axios.defaults.baseURL = 'http://47.94.104.248:666'
+axios.defaults.baseURL = 'http://localhost:666'
 axios.defaults.headers.common['token'] = store.state.token
 // 将API方法绑定到全局
 Vue.prototype.$axios = axios

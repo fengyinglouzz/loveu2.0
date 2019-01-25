@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import Router from 'vue-router'
 import loginIndex from '@/pages/login/loginindex'
 import signupIndex from '@/pages/login/signupIndex'
 import homePage from '@/pages/home'
@@ -14,80 +12,78 @@ import anniversaryPage from '@/pages/anniversary'
 import test from '@/pages/test'
 import store from '../store';
 
-Vue.use(Router)
-
 if (localStorage.getItem('token')) {
   store.commit('changeToken', localStorage.getItem('token'))
 }
-const router = new Router({
+const router = new VueRouter({
   //用来去掉url中的#，虽然#可以去掉，但是会引发刷新后404的错误
   //TODO 启动后台服务检验带#的情况
   // mode: 'history',
   routes: [{
-      path: '/',
-      // redirect: '/test'
-      redirect: '/home'
+    path: '/',
+    // redirect: '/test'
+    redirect: '/home'
+  },
+  {
+    path: '/login',
+    name: 'loginIndex',
+    component: loginIndex
+  },
+  {
+    path: '/signup',
+    name: 'signupIndex',
+    component: signupIndex
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: test
+  },
+  {
+    path: '/home',
+    name: 'home',
+    meta: {
+      title: '空间',
     },
-    {
-      path: '/login',
-      name: 'loginIndex',
-      component: loginIndex
-    },
-    {
-      path: '/signup',
-      name: 'signupIndex',
-      component: signupIndex
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: test
-    },
-    {
-      path: '/home',
-      name: 'home',
-      meta: {
-        title: '空间',
-      },
-      component: homePage,
-    },
-    {
-      path: '/community',
-      name: 'community',
-      component: communityPage,
-    },
-    {
-      path: '/newarticle',
-      name: 'newarticle',
-      component: newarticlePage,
-    },
-    {
-      path: '/onearticle',
-      name: 'onearticle',
-      component: onearticlePage,
-    },
-    {
-      path: '/my',
-      name: 'my',
-      children: [{
-        path: '/myarticle',
-        name: 'myarticle',
-        component: myarticlePage,
-      }, {
-        path: '/herarticle',
-        name: 'herarticle',
-        component: herarticlePage,
-      }, {
-        path: '/mymoney',
-        name: 'mymoney',
-        component: mymoneyPage,
-      }, {
-        path: '/anniversary',
-        name: 'anniversary',
-        component: anniversaryPage,
-      }, ],
-      component: myPage,
-    }
+    component: homePage,
+  },
+  {
+    path: '/community',
+    name: 'community',
+    component: communityPage,
+  },
+  {
+    path: '/newarticle',
+    name: 'newarticle',
+    component: newarticlePage,
+  },
+  {
+    path: '/onearticle',
+    name: 'onearticle',
+    component: onearticlePage,
+  },
+  {
+    path: '/my',
+    name: 'my',
+    children: [{
+      path: '/myarticle',
+      name: 'myarticle',
+      component: myarticlePage,
+    }, {
+      path: '/herarticle',
+      name: 'herarticle',
+      component: herarticlePage,
+    }, {
+      path: '/mymoney',
+      name: 'mymoney',
+      component: mymoneyPage,
+    }, {
+      path: '/anniversary',
+      name: 'anniversary',
+      component: anniversaryPage,
+    },],
+    component: myPage,
+  }
   ]
 })
 

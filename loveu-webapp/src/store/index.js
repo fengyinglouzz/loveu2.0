@@ -1,9 +1,3 @@
-// vuex
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
 // 创建vuex的store
 const store = new Vuex.Store({
   state: {
@@ -16,43 +10,43 @@ const store = new Vuex.Store({
   },
   //更改state的状态
   mutations: {
-    increment(state) {
+    increment (state) {
       state.count++
     },
-    decrement(state) {
+    decrement (state) {
       state.count--
     },
-    changeCode(state, code) {
+    changeCode (state, code) {
       state.code = code
     },
-    changeArticleId(state, id) {
+    changeArticleId (state, id) {
       state.articleId = id
     },
-    changeUsernameFromLs(state) {
+    changeUsernameFromLs (state) {
       state.username = localStorage.getItem('username')
     },
-    changeGroupnameFromLs(state) {
+    changeGroupnameFromLs (state) {
       state.groupname = localStorage.getItem('groupname')
     },
-    changeToken(state, token) {
+    changeToken (state, token) {
       state.token = token
       localStorage.setItem('token', token)
     },
-    changeUsername(state, username) {
+    changeUsername (state, username) {
       state.username = username
       localStorage.setItem('username', username)
     },
-    changeGroupname(state, groupname) {
+    changeGroupname (state, groupname) {
       state.groupname = groupname
       localStorage.setItem('groupname', groupname)
     }
   },
   //有异步的时候
   actions: {
-    increment(context) {
+    increment (context) {
       context.commit('increment')
     },
-    decrement(context) {
+    decrement (context) {
       setTimeout(function () {
         context.commit('decrement')
       }, 10)
@@ -60,19 +54,19 @@ const store = new Vuex.Store({
   },
   //通过getter进行数据获取
   getters: {
-    getArticleId(state) {
+    getArticleId (state) {
       return state.articleId;
     },
-    getCode(state) {
+    getCode (state) {
       return state.code;
     },
-    getState(state) {
+    getState (state) {
       return state.count > 0 ? state.count : 0;
     },
-    getGroupName(state) {
+    getGroupName (state) {
       return state.groupname;
     },
-    getUsername(state) {
+    getUsername (state) {
       return state.username;
     }
   }
