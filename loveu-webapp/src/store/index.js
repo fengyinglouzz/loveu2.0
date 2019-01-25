@@ -8,6 +8,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     code: '',
+    articleId: 1,
     count: 5,
     username: localStorage.getItem('username') ? localStorage.getItem('username') : '',
     groupname: localStorage.getItem('groupname') ? localStorage.getItem('groupname') : '',
@@ -23,6 +24,9 @@ const store = new Vuex.Store({
     },
     changeCode(state, code) {
       state.code = code
+    },
+    changeArticleId(state, id) {
+      state.articleId = id
     },
     changeUsernameFromLs(state) {
       state.username = localStorage.getItem('username')
@@ -56,6 +60,9 @@ const store = new Vuex.Store({
   },
   //通过getter进行数据获取
   getters: {
+    getArticleId(state) {
+      return state.articleId;
+    },
     getCode(state) {
       return state.code;
     },

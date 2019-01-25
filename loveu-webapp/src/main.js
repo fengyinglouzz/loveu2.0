@@ -12,9 +12,17 @@ import Icon from 'vue-awesome/components/Icon'
 import router from './router'
 import store from './store'
 
+import VueQuillEditor from 'vue-quill-editor'
+// require styles 引入样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 // 引用axios，并设置基础URL为后端服务api地址
 var axios = require('axios')
 Vue.component('icon', Icon)
+Vue.use(VueQuillEditor)
+
 axios.defaults.baseURL = 'http://47.94.104.248:666'
 axios.defaults.headers.common['token'] = store.state.token
 // 将API方法绑定到全局

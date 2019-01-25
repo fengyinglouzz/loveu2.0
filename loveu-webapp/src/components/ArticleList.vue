@@ -3,12 +3,15 @@
     <h1>{{ this.person }}</h1>
     <li
       v-for="item in articleList"
-      :key="item.title"
+      :key="item.id"
     >
-      <div class="article-one">
+      <div
+        class="article-one"
+        @click="gothisarticle(item.id)"
+      >
         <div class="article-title">{{ item.title }}</div>
-        <div class="article-abstract">{{ item.abstract }}</div>
-        <div class="article-date">{{ item.date }}</div>
+        <div class="article-content">{{ item.content }}</div>
+        <div class="article-date">{{ item.createDate }}</div>
       </div>
       <hr
         style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#987cb9,strength=10);opacity:0.2;"
@@ -23,30 +26,36 @@
 <script>
 export default {
   created () {
-    this.person = this.$router.history.current.name;
+    // 拿到路径尾部的那个字符串
+    switch (this.$router.history.current.name) {
+      case 'home': this.person = 'home'; break
+      case 'herarticle': this.person = 'she'; break
+      case 'myarticle': this.person = 'my'; break
+    };
+    this.getArticleList()
   },
   data () {
     return {
       person: '',
-      articleList: [
-        {
-          "title": "标题一",
-          "abstract": "离开静安寺砥砺奋进阿斯兰的会计法拉克圣诞节福利卡束带结发",
-          "date": "2019-01-02 20:55"
-        }, {
-          "title": "标题二",
-          "abstract": "asdfasdfwqsdlkfjaslkdjflkasjdflmzxc.v,m阿斯顿发斯蒂芬",
-          "date": "2019-01-02 20:55"
-        }, {
-          "title": "标题三",
-          "abstract": "完全二群翁人情味儿去玩儿去玩儿去完成V型这款车V领就撒地方撒旦离开就要",
-          "date": "2019-01-02 20:55"
-        }, {
-          "title": "标题四",
-          "abstract": "概阿斯蒂芬请问二千万请问去玩儿去玩儿去玩儿要",
-          "date": "2019-01-02 20:55"
-        },
-      ]
+      articleList: [],
+    }
+  },
+  methods: {
+    getArticleList () {
+      this.$axios({
+        methods: 'get',
+        url: '/article',
+        params: {
+          groupName: this.$store.getters.getGroupName
+        }
+      }).then(res => {
+        console.log(res)
+        this.articleList = res.data.data
+      })
+    },
+    gothisarticle (id) {
+      this.$store.commit('changeArticleId', id)
+      this.$router.push('/onearticle')
     }
   }
 }
@@ -62,10 +71,13 @@ ul li {
   font-weight: 1000;
   margin-bottom: 25px;
 }
-.article-abstract {
+.article-content {
   font-size: 20px;
   margin-top: 3px;
   margin-bottom: 8px;
+  overflow: hidden; /*内容超出后隐藏*/
+  text-overflow: ellipsis; /* 超出内容显示为省略号*/
+  white-space: nowrap; /*文本不进行换行*/
 }
 .article-date {
   font-size: 20px;

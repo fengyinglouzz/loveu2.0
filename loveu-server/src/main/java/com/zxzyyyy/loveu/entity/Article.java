@@ -1,4 +1,5 @@
 package com.zxzyyyy.loveu.entity;
+
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -8,32 +9,27 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "tb_auth")
+@Table(name = "tb_article")
 @EntityListeners(AuditingEntityListener.class)
-public class Auth {
+public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "user_name")
-    private String username;
+    //标题
+    private String title;
 
-    private String password;
-
-    //注册邮箱
-    private String email;
+    private String content;
 
     @JoinColumn(name = "g_id", nullable = false, foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
     @OneToOne(cascade = CascadeType.ALL)
     private Group group;
 
-    @JoinColumn(name = "r_id", nullable = false, foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Role role;
+    @JoinColumn(name = "a_id", nullable = false, foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
+    @OneToOne(cascade = CascadeType.ALL)
+    private Auth auth;
 
-    //注册日期
     @Column(nullable = false)
     @CreatedDate
     private Date createDate;
-
 }

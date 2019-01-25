@@ -7,7 +7,8 @@ import communityPage from '@/pages/community'
 import myPage from '@/pages/my'
 import myarticlePage from '@/pages/article/myarticle'
 import herarticlePage from '@/pages/article/herarticle'
-import ourarticlePage from '@/pages/article/ourarticle'
+import newarticlePage from '@/pages/article/newarticle'
+import onearticlePage from '@/pages/article/onearticle'
 import mymoneyPage from '@/pages/money'
 import anniversaryPage from '@/pages/anniversary'
 import test from '@/pages/test'
@@ -56,6 +57,16 @@ const router = new Router({
       component: communityPage,
     },
     {
+      path: '/newarticle',
+      name: 'newarticle',
+      component: newarticlePage,
+    },
+    {
+      path: '/onearticle',
+      name: 'onearticle',
+      component: onearticlePage,
+    },
+    {
       path: '/my',
       name: 'my',
       children: [{
@@ -74,7 +85,7 @@ const router = new Router({
         path: '/anniversary',
         name: 'anniversary',
         component: anniversaryPage,
-      }],
+      }, ],
       component: myPage,
     }
   ]

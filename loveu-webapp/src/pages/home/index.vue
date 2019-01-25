@@ -28,6 +28,7 @@
         <el-button
           class="create-article"
           type="success"
+          @click="newArticle()"
         >写恋爱记</el-button>
       </el-header>
       <el-container>
@@ -82,6 +83,11 @@ export default {
   components: {
     TopLine,
     ArticleList,
+  },
+  methods: {
+    newArticle () {
+      this.$router.push('/newarticle')
+    }
   }
 }
 </script>

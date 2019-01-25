@@ -18,4 +18,8 @@ public class GroupService {
     public Group findById(int id) {
         return groupRepository.findById(id);
     }
+
+    public Group findByGroupname(String groupName) {
+        return groupRepository.findByGroupName(groupName);
+    }
 }
