@@ -1,6 +1,7 @@
 <template>
   <div>
     <top-line></top-line>
+    <join-group-form></join-group-form>
     <el-container>
       <el-aside
         width="200px"
@@ -152,8 +153,9 @@
 </template>
 
 <script>
-
 import TopLine from '@/components/TopLine'
+import JoinGroupForm from '@/components/form/JoinGroupForm'
+
 export default {
   data () {
     return {
@@ -163,13 +165,21 @@ export default {
   },
   components: {
     TopLine,
+    JoinGroupForm,
   },
   methods: {
     goarticle (one) {
       this.$router.push(`/${one}article`)
     },
     gohome () {
-      this.$router.push('/home')
+      if (this.$store.getters.getGroupName === '没有组') {
+        this.$message({
+          message: '暂时没有组',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push('/home')
+      }
     },
     gomoney () {
       this.$router.push('/mymoney')

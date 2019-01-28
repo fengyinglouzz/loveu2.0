@@ -49,7 +49,6 @@ export default {
           groupName: this.$store.getters.getGroupName
         }
       }).then(res => {
-        console.log(res)
         this.articleList = res.data.data
       })
     },

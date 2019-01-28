@@ -50,7 +50,6 @@ export default {
         })
         .then(res => {
           if (res.data.code != 200) {
-            console.log(res)
             this.$message.error(res.data.message);
           } else {
             this.$message({

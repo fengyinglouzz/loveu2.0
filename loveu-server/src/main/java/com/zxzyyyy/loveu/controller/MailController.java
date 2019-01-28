@@ -43,6 +43,6 @@ public class MailController {
         String code = generateCode.getRandNum(6);
         emailDto.setContent("您的验证码为： " + code + "\n" + "来开启恋爱之旅吧！");
         mailService.createTs(emailDto);
-        return new ResultMap().success().message("").data(new Data().addObj("code", code));
+        return new ResultMap().success().message("注册邮件发送成功").data(new Data().addObj("code", code));
     }
 }

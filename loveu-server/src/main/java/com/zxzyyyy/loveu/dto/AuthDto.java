@@ -12,4 +12,5 @@ public class AuthDto {
     private String username;
 
     @NotNull(message="密码不允许为空")
-    private String password;}
+    private String password;
+}

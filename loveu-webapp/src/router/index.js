@@ -8,8 +8,9 @@ import herarticlePage from '@/pages/article/herarticle'
 import newarticlePage from '@/pages/article/newarticle'
 import onearticlePage from '@/pages/article/onearticle'
 import mymoneyPage from '@/pages/money'
+import groupPage from '@/pages/group'
+import testPage from '@/pages/test'
 import anniversaryPage from '@/pages/anniversary'
-import test from '@/pages/test'
 import store from '../store';
 
 if (localStorage.getItem('token')) {
@@ -35,11 +36,6 @@ const router = new VueRouter({
     component: signupIndex
   },
   {
-    path: '/test',
-    name: 'test',
-    component: test
-  },
-  {
     path: '/home',
     name: 'home',
     meta: {
@@ -61,6 +57,16 @@ const router = new VueRouter({
     path: '/onearticle',
     name: 'onearticle',
     component: onearticlePage,
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: testPage,
+  },
+  {
+    path: '/group',
+    name: 'group',
+    component: groupPage,
   },
   {
     path: '/my',
@@ -93,6 +99,7 @@ router.beforeEach((to, from, next) => {
   } else {
     let token = localStorage.getItem('token')
     let username = localStorage.getItem('username')
+    let groupname = localStorage.getItem('groupname')
     if (token === 'specialforsignup') {
       next('/signup')
     } else if (token === null || token === '') {
@@ -100,6 +107,12 @@ router.beforeEach((to, from, next) => {
     } else if (username === null) {
       next('/community')
     } else {
+      next();
+    }
+    if (to.path === '/home') {
+      if (groupname === '没有组') {
+        next('/community')
+      }
       next();
     }
   }

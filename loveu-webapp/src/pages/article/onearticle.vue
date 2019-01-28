@@ -29,7 +29,6 @@ export default {
         methods: 'get',
         url: `/article/${this.$store.getters.getArticleId}`,
       }).then(res => {
-        console.log(res)
         this.content = res.data.data.content
       })
     },

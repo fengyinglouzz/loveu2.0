@@ -22,6 +22,7 @@
             v-model="signupForm.email"
             placeholder="邮箱"
             auto-complete
+            @keyup.enter.native="sendemail"
           ></el-input>
         </el-col>
         <el-col :span="10">
@@ -166,38 +167,39 @@ export default {
       this.$router.push('/#/login')
     },
     handleSubmit () {
-      if (this.signupForm.code != this.$store.getters.getCode) {
+      let that = this;
+      if (that.signupForm.code != that.$store.getters.getCode) {
         this.$message({
           message: '验证失败，请检查验证码',
           type: 'warning'
         })
       } else {
-        if (this.signupForm.confirmpass != this.signupForm.password) {
-          this.$message({
+        if (that.signupForm.confirmpass != that.signupForm.password) {
+          that.$message({
             message: '两次输入的密码不一致~',
             type: 'warning'
           })
         } else {
-          let that = this;
-          this.$refs.signupForm.validate(valid => {
+          that.$refs.signupForm.validate(valid => {
             if (valid) {
-              this.logining = true;
-              this.$axios
+              that.logining = true;
+              that.$axios
                 .post("/auth/signup", {
-                  username: this.signupForm.username,
-                  password: this.signupForm.password,
-                  email: this.signupForm.email,
+                  username: that.signupForm.username,
+                  password: that.signupForm.password,
+                  email: that.signupForm.email,
                 })
                 .then(res => {
-                  console.log(res);
                   if (res.data.code != 200) {
                     that.$message.error(res.data.message);
-                    this.logining = false;
+                    that.logining = false;
                   } else {
                     that.token = res.data.data["token"];
-                    this.$store.commit("changeToken", that.token);
-                    this.$store.commit("changeUsername", that.signupForm.username);
-                    this.$router.push('/#/community');
+                    that.$store.commit("changeToken", that.token);
+                    that.$store.commit("changeUsername", that.signupForm.username);
+                    debugger
+                    that.$store.commit("changeGroupname", res.data.data.groupName);
+                    that.$router.push('/community');
                   }
                 })
             } else {

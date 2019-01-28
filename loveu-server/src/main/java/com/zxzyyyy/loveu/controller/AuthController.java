@@ -1,6 +1,7 @@
 package com.zxzyyyy.loveu.controller;
 
 import com.zxzyyyy.loveu.dto.AuthDto;
+import com.zxzyyyy.loveu.dto.AuthGroupDto;
 import com.zxzyyyy.loveu.dto.EmailDto;
 import com.zxzyyyy.loveu.entity.Auth;
 import com.zxzyyyy.loveu.entity.Group;
@@ -69,6 +70,24 @@ public class AuthController {
         auth.setPassword(authDto.getPassword());
         auth.setUsername(authDto.getUsername());
         authService.add(auth);
-        return new ResultMap().success().message("").data(new Data().addObj(tokenHeader, tokenUtils.generateToken(authDto)));
+        return new ResultMap().success().message("成功注册").data(new Data(auth).addObj(tokenHeader, tokenUtils.generateToken(authDto)));
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResultMap findUser(@RequestParam String username) {
+        Auth auth = authService.findByUserName(username);
+        if(auth == null) {
+            return new ResultMap().fail("438").message(NOT_HAS_ACCOUNT);
+        }
+        return new ResultMap().success().message("查询成功").data(auth);
+    }
+
+    @RequestMapping(value = "/group", method = RequestMethod.POST)
+    public ResultMap joinGroup(@RequestBody AuthGroupDto authGroupDto) {
+        Auth auth = authService.findByUserName(authGroupDto.getUsername());
+        Group group = groupService.findByGroupname(authGroupDto.getGroupName());
+        auth.setGroup(group);
+        authService.add(auth);
+        return new ResultMap().success().message("设置成功").data(auth);
     }
 }

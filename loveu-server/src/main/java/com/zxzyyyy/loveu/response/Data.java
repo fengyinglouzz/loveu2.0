@@ -1,5 +1,7 @@
 package com.zxzyyyy.loveu.response;
 
+import com.zxzyyyy.loveu.entity.Auth;
+
 import java.util.HashMap;
 
 /**
@@ -10,6 +12,15 @@ public class Data extends HashMap {
     public Data addObj(String key, Object value){
         this.put(key, value);
         return this;
+    }
+
+    public Data() {
+
+    }
+
+    public Data(Auth auth) {
+        this.put("username", auth.getUsername());
+        this.put("groupName", auth.getGroup().getGroupName());
     }
 
     public Data addChat(String chat){

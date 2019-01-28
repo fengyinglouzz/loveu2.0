@@ -1,6 +1,5 @@
 package com.zxzyyyy.loveu.controller;
 
-import com.zxzyyyy.loveu.entity.Auth;
 import com.zxzyyyy.loveu.entity.Group;
 import com.zxzyyyy.loveu.response.ResultMap;
 import com.zxzyyyy.loveu.service.AuthService;
@@ -25,6 +24,6 @@ public class GroupController {
         if(group == null) {
             return new ResultMap().fail("001").message(NO_GROUP);
         }
-        return new ResultMap().success().message("").data(group.getGroupName());
+        return new ResultMap().success().message("查询成功").data(group.getGroupName());
     }
 }

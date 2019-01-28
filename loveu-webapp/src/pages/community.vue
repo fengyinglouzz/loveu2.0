@@ -8,9 +8,11 @@
 import TopLine from '@/components/TopLine'
 
 export default {
+
   components: {
     TopLine,
-  }
+  },
+
 }
 </script>
 

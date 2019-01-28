@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div>
-      <i class="fa fa-spinner fa-pulse fa-4x"></i>
+      <!-- <i class="fa fa-spinner fa-pulse fa-4x"></i> -->
       <svg
         class="icon"
         style="height:4em;width:4em;"
@@ -127,7 +127,6 @@ export default {
               password: this.loginForm.password
             })
             .then(res => {
-              console.log(res);
               if (res.data.code != 200) {
                 that.$message.error(res.data.message);
                 this.logining = false;
