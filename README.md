@@ -1,27 +1,12 @@
-# loveu2.0
+# 服务端：
+打开loveu-server下的pom.xml
+新建loveu数据库，默认编码utf8_general_ci，导入loveu.sql并运行
+修改application.properties中的数据库 账户密码
+运行LoveuApplication
+
 ---
-##### loveu2.0第一次传git <br/>
-##### 2019/1/13
----
-##### 前台增加vuex和token验证并重写登录页面
-##### 2019/1/15
----
-##### token相关
-##### 2019/1/16
----
-##### home页填充 新建community页 完善登录逻辑
-##### issue:01 待完善：在社区页点击登录后topline不刷新
-##### 2019/1/22
----
-##### 登录页面背景图 去掉全局横幅
-##### closed issue:01
-##### 2019/1/22 2
----
-##### 增加注册功能|引入彩色iconfont模块
-##### 2019/1/23
----
-##### 前后端尝试同时部署到linux失败
-##### 删除后端无效代码 解决了不能maven install的问题
-##### 2019/1/23 2
----
-不写了~以后写文档，提交信息直接看
+# 前端：
+打开love-webapp
+npm install
+npm run dev
+
