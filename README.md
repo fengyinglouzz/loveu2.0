@@ -4,7 +4,6 @@
 修改application.properties中的数据库 账户密码
 运行LoveuApplication
 
----
 # 前端：
 打开love-webapp
 npm install
