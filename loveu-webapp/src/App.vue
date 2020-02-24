@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <foot-line></foot-line>
   </div>
 </template>
 
 <script>
+import FootLine from '@/components/FootLine'
+
 export default {
   name: 'App',
   components: {
-
+    FootLine,
   },
 }
 </script>
